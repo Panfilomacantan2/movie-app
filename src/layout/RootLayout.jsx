@@ -1,10 +1,21 @@
 import { Outlet } from 'react-router-dom';
 import SideNav from '../components/SideNav';
 import Header from '../components/Header';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useMediaQuery } from '@react-hook/media-query';
 
 const RootLayout = () => {
-	const [show, setShow] = useState(true);
+	const [show, setShow] = useState(false);
+	const matches = useMediaQuery('only screen and (min-width: 768px)');
+	
+
+	useEffect(() => {
+		if (matches) {
+			setShow(true);
+		}else{
+			setShow(false);
+		}
+	}, [matches]);
 
 	return (
 		<section className="min-h-screen flex gap-4 pt-16 md:pt-0">
