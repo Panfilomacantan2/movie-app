@@ -3,10 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 import RootLayout from './layout/RootLayout';
 import { Suspense, lazy } from 'react';
 import Loader from './components/Loader';
+import MovieGenre from './pages/MovieGenre';
 
 const HomePage = lazy(() => import('./pages/Home'));
 const MoviePage = lazy(() => import('./pages/Movie'));
 const NotFoundPage = lazy(() => import('./pages/NotFound'));
+const MovieDetails = lazy(() => import('./pages/MovieDetails'));
 
 const App = () => {
 	return (
@@ -37,10 +39,19 @@ const App = () => {
 				/>
 
 				<Route
-					path="/movie/:id"
+					path="/movie/details/:id"
 					element={
 						<Suspense fallback={<Loader />}>
-							<MoviePage />
+							<MovieDetails />
+						</Suspense>
+					}
+				/>
+
+				<Route
+					path="/movie/genre/:id"
+					element={
+						<Suspense fallback={<Loader />}>
+							<MovieGenre />
 						</Suspense>
 					}
 				/>

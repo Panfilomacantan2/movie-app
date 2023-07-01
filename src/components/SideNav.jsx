@@ -5,8 +5,9 @@ import { useMovie } from '../context/movieContext';
 import { netflixLogo, netflixTextLogo } from '../assets';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AiOutlineClose } from 'react-icons/ai';
+import { BsSearch } from 'react-icons/bs';
 
-const SideNav = ({ show, setShow}) => {
+const SideNav = ({ show, setShow }) => {
 	const [activeItem, setActiveItem] = useState('home');
 	const { setMovieCategory } = useMovie();
 
@@ -56,18 +57,27 @@ const SideNav = ({ show, setShow}) => {
 
 	return (
 		<ul className="text-white text-left text-lg  cursor-pointer">
-			<li className="bg-slate-800 fixed top-0 left-0 w-full md:w-auto flex items-center justify-between md:justify-center md:relative px-5 py-2">
+			<li className="bg-slate-800 fixed top-0 left-0 w-full  flex items-center justify-between   px-5 py-2">
 				<Link to="/">
 					<img src={netflixTextLogo} alt="netflix logo" className="w-32 block mx-auto" />
 				</Link>
+				<div className="flex gap-x-6  items-center">
+					<div className="flex items-center gap-x-2 text-gray-300 hover:text-gray-200">
+						<BsSearch />
+						<p>Search</p>
+					</div>
 
-				<span className="md:hidden">{show ? <AiOutlineClose className="text-2xl" onClick={() => setShow(!show)} /> : <RxHamburgerMenu className="text-2xl" onClick={() => setShow(!show)} />}</span>
+					<span className="lg:hidden">{show ? <AiOutlineClose className="text-2xl" onClick={() => setShow(!show)} /> : <RxHamburgerMenu className="text-2xl" onClick={() => setShow(!show)} />}</span>
+				</div>
 			</li>
 
-			<div className={` mt-28 md:mt-10 `}>
+			<div className={` pt-20 px-2`}>
 				{sidebarItems.map((item, idx) => (
 					<Link to={item.path} key={item.id}>
-						<li className={activeItem === item.id ? 'bg-gray-700 hover:bg-gray-700 px-5 py-2' : 'text-gray-300 bg-slate-800 hover:bg-gray-700 px-5 py-2'} onClick={() => handleItemClick(item.id)}>
+						<li
+							className={activeItem === item.id ? 'bg-gray-700 hover:bg-gray-700 px-5 py-2 rounded-md' : 'text-gray-300 bg-slate-800 hover:bg-gray-700 px-5 py-2 rounded-md'}
+							onClick={() => handleItemClick(item.id)}
+						>
 							{item.label}
 						</li>
 					</Link>
