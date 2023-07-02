@@ -1,3 +1,8 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.image-gradient {
+	@apply absolute bottom-0 left-0 w-full h-28 bg-gradient-to-t from-black to-transparent rounded-md;
+}

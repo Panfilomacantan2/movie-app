@@ -16,6 +16,12 @@ const MovieGenre = () => {
 			console.log(data.results);
 		};
 		fetchMoviesByGenre();
+
+		return () => {
+
+			setMoviesGenres([]);
+		}
+		
 	}, []);
 
 	return (

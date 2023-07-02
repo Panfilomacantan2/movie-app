@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMovie } from '../context/movieContext';
 
-import { netflixLogo, netflixTextLogo } from '../assets';
-import { RxHamburgerMenu } from 'react-icons/rx';
-import { AiOutlineClose } from 'react-icons/ai';
-import { BsSearch } from 'react-icons/bs';
-
 const SideNav = ({ show, setShow }) => {
-	const [activeItem, setActiveItem] = useState('home');
+	const [activeItem, setActiveItem] = useState('trending');
 	const { setMovieCategory } = useMovie();
 
 	const sidebarItems = [
-		{ id: 'home', label: 'Home', path: '/' },
+		{ id: 'trending', label: 'Trending', path: '/' },
 		{ id: 'netflix_original', label: 'Netflix Original', path: '/movie/netflix_original' },
 		{ id: 'top_rated', label: 'Top Rated', path: '/movie/top_rated' },
 		{ id: 'action_movies', label: 'Action Movies', path: '/movie/action_movies' },
@@ -25,8 +20,9 @@ const SideNav = ({ show, setShow }) => {
 		setActiveItem(itemId);
 
 		switch (itemId) {
-			case 'home':
+			case 'trending':
 				setMovieCategory(`/trending/all/week?api_key=${import.meta.env.VITE_APP_API_KEY}&language=en-US`);
+				setMovieCategory(`https://api.themoviedb.org/3/trending/all/day?language=en-US`);
 				break;
 			case 'netflix_original':
 				setMovieCategory(`/discover/tv?api_key=${import.meta.env.VITE_APP_API_KEY}&with_network=123`);
@@ -56,33 +52,25 @@ const SideNav = ({ show, setShow }) => {
 	};
 
 	return (
-		<ul className="text-white text-left text-lg  cursor-pointer">
-			<li className="bg-slate-800 fixed top-0 left-0 w-full  flex items-center justify-between   px-5 py-2">
-				<Link to="/">
-					<img src={netflixTextLogo} alt="netflix logo" className="w-32 block mx-auto" />
-				</Link>
-				<div className="flex gap-x-6  items-center">
-					<div className="flex items-center gap-x-2 text-gray-300 hover:text-gray-200">
-						<BsSearch />
-						<p>Search</p>
-					</div>
-
-					<span className="lg:hidden">{show ? <AiOutlineClose className="text-2xl" onClick={() => setShow(!show)} /> : <RxHamburgerMenu className="text-2xl" onClick={() => setShow(!show)} />}</span>
+		<ul className="flex text-white text-left text-lg  cursor-pointer gap-x-4">
+			<li>Movies</li>
+			<li>TV shows</li>
+			<li>
+				<Link to='/person?page=1'>People</Link>
+			</li>
+			<li className="relative z-10 group">
+				<span>Categories</span>
+				<div className="hidden  group-hover:flex  flex-col absolute bg-white  py-3 rounded-md shadow-lg">
+					{sidebarItems.map((item, idx) => (
+						<Link to={item.path} key={item.id}>
+							<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100" onClick={() => handleItemClick(item.id)}>
+								{item.label}
+							</span>
+						</Link>
+					))}
 				</div>
 			</li>
-
-			<div className={` pt-20 px-2`}>
-				{sidebarItems.map((item, idx) => (
-					<Link to={item.path} key={item.id}>
-						<li
-							className={activeItem === item.id ? 'bg-gray-700 hover:bg-gray-700 px-5 py-2 rounded-md' : 'text-gray-300 bg-slate-800 hover:bg-gray-700 px-5 py-2 rounded-md'}
-							onClick={() => handleItemClick(item.id)}
-						>
-							{item.label}
-						</li>
-					</Link>
-				))}
-			</div>
+			<li>More</li>
 		</ul>
 	);
 };

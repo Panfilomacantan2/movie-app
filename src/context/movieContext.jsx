@@ -18,7 +18,7 @@ const MovieProvider = ({ children }) => {
 	const { fetchTrending, fetchNetflixOriginals, fetchTopRated, fetchActionMovies, fetchComedyMovies, fetchHorrorMovies, fetchRomanceMovies, fetchDocumentaries } = requestsMovies;
 
 	const [movieData, setMovieData] = useState([]);
-	const [movieCategory, setMovieCategory] = useState(`/trending/all/week?api_key=${import.meta.env.VITE_APP_API_KEY}&language=en-US`);
+	const [movieCategory, setMovieCategory] = useState(`/trending/all/day?api_key=${import.meta.env.VITE_APP_API_KEY}&language=en-US`);
 
 	const { data, loading } = useFetch(`${import.meta.env.VITE_APP_BASE_URL}${movieCategory}`);
 

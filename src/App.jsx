@@ -9,6 +9,9 @@ const HomePage = lazy(() => import('./pages/Home'));
 const MoviePage = lazy(() => import('./pages/Movie'));
 const NotFoundPage = lazy(() => import('./pages/NotFound'));
 const MovieDetails = lazy(() => import('./pages/MovieDetails'));
+const PopularPerson = lazy(() => import('./pages/PopularPerson'));
+
+
 
 const App = () => {
 	return (
@@ -21,7 +24,17 @@ const App = () => {
 				}
 			>
 				<Route
+					path="/person"
+					element={
+						<Suspense fallback={<Loader />}>
+							<PopularPerson />
+						</Suspense>
+					}
+				/>
+
+				<Route
 					path="/"
+					index
 					element={
 						<Suspense fallback={<Loader />}>
 							<HomePage />
