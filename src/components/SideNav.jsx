@@ -53,14 +53,36 @@ const SideNav = ({ show, setShow }) => {
 
 	return (
 		<ul className="flex text-white text-left text-lg  cursor-pointer gap-x-4">
-			<li>Movies</li>
-			<li>TV shows</li>
-			<li>
-				<Link to='/person?page=1'>People</Link>
+			<li className="relative z-20 group">
+				<span>Movies</span>
+				<div className="hidden  z-20 group-hover:flex  flex-col absolute bg-white  py-3 rounded-md shadow-lg">
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Popular</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Now Playing</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Upcoming</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Top Rated</span>
+				</div>
 			</li>
-			<li className="relative z-10 group">
+			<li className="relative z-20 group">
+				<span>TV shows</span>
+				<div className="hidden z-20 group-hover:flex  flex-col absolute bg-white  py-3 rounded-md shadow-lg">
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Popular</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Airing Today</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">On TV</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Top Rated</span>
+				</div>
+			</li>
+			<li className="relative z-20 group">
+				<span>People</span>
+
+				<div className="hidden z-20 group-hover:flex  flex-col absolute bg-white  py-3 rounded-md shadow-lg">
+					<Link to="/person?page=1">
+						<span className="w-full block px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Popular People</span>
+					</Link>
+				</div>
+			</li>
+			<li className="relative  z-20 group">
 				<span>Categories</span>
-				<div className="hidden  group-hover:flex  flex-col absolute bg-white  py-3 rounded-md shadow-lg">
+				<div className="hidden z-20 group-hover:flex  flex-col absolute bg-white  py-3 rounded-md shadow-lg">
 					{sidebarItems.map((item, idx) => (
 						<Link to={item.path} key={item.id}>
 							<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100" onClick={() => handleItemClick(item.id)}>
@@ -70,7 +92,16 @@ const SideNav = ({ show, setShow }) => {
 					))}
 				</div>
 			</li>
-			<li>More</li>
+			<li className="relative z-20 group">
+				<span>More</span>
+
+				<div className="hidden z-20  group-hover:flex  flex-col absolute bg-white  py-3 rounded-md shadow-lg">
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Discussions</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Leaderboard</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">Support</span>
+					<span className="w-full inline-flex px-8 mt-1 rounded-md text-gray-900  hover:bg-gray-100">API</span>
+				</div>
+			</li>
 		</ul>
 	);
 };

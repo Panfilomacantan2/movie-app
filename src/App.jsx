@@ -3,15 +3,16 @@ import { Routes, Route } from 'react-router-dom';
 import RootLayout from './layout/RootLayout';
 import { Suspense, lazy } from 'react';
 import Loader from './components/Loader';
-import MovieGenre from './pages/MovieGenre';
 
+
+
+// Pages
 const HomePage = lazy(() => import('./pages/Home'));
 const MoviePage = lazy(() => import('./pages/Movie'));
 const NotFoundPage = lazy(() => import('./pages/NotFound'));
 const MovieDetails = lazy(() => import('./pages/MovieDetails'));
 const PopularPerson = lazy(() => import('./pages/PopularPerson'));
-
-
+const MovieGenre = lazy(() => import('./pages/MovieGenre'));
 
 const App = () => {
 	return (

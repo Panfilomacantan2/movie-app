@@ -7,6 +7,7 @@ import { netflixLogo, netflixTextLogo } from '../assets';
 import { RxHamburgerMenu } from 'react-icons/rx';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BsSearch } from 'react-icons/bs';
+import Footer from '../components/Footer';
 
 const RootLayout = () => {
 	const [show, setShow] = useState(false);
@@ -33,6 +34,8 @@ const RootLayout = () => {
 			</nav>
 
 			<Outlet />
+
+			<Footer />
 		</section>
 	);
 };

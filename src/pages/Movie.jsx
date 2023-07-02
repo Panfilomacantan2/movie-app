@@ -32,7 +32,7 @@ const Home = () => {
 	}
 
 	return (
-		<div className="px-3 gap-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7 py-5 max-h-screen overflow-auto relative">
+		<div className="px-3 py-10 gap-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-7  relative">
 			{movies &&
 				movies.map((movie) => (
 					<Link to={`/movie/details/${movie.id}`} key={movie.id}>
