@@ -3,8 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import RootLayout from './layout/RootLayout';
 import { Suspense, lazy } from 'react';
 import Loader from './components/Loader';
-
-
+import 'react-tippy/dist/tippy.css';
 
 // Pages
 const HomePage = lazy(() => import('./pages/Home'));
@@ -13,6 +12,7 @@ const NotFoundPage = lazy(() => import('./pages/NotFound'));
 const MovieDetails = lazy(() => import('./pages/MovieDetails'));
 const PopularPerson = lazy(() => import('./pages/PopularPerson'));
 const MovieGenre = lazy(() => import('./pages/MovieGenre'));
+const PersonDetails = lazy(() => import('./pages/PersonDetails'));
 
 const App = () => {
 	return (
@@ -69,6 +69,16 @@ const App = () => {
 						</Suspense>
 					}
 				/>
+
+				<Route
+					path="/person/:id"
+					element={
+						<Suspense fallback={<Loader />}>
+							<PersonDetails />
+						</Suspense>
+					}
+				/>
+
 			</Route>
 			<Route
 				path="/*"

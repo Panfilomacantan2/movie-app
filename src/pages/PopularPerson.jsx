@@ -1,41 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import PaginatedItems from '../components/PaginatedItems';
-import Items from '../components/Items';
+import Peoples from '../components/Peoples';
+import Pagination from '../components/Pagination';
 
 const PopularPerson = () => {
 	const [popularPersons, setPopularPersons] = useState([]);
 	const location = useLocation();
-	const queryParams = new URLSearchParams(location.search);
+	let [currentPage, setCurrentPage] = useState(new URLSearchParams(location.search));
 
-	console.log(queryParams);
-	let page = 2;
-	let itemsPerPage = 20;
+	console.log(currentPage);
+
+	const totalPages = 500;
+
+	// !Data to paginate
+	// total_pages = 500
+	// total_results = 10000
 
 	useEffect(() => {
 		const fetchPopularPerson = () => {
-			fetch(`https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_APP_NEW_TMDB_API_KEY}&sort_by=popularity.desc&page=${page}`)
+			fetch(`https://api.themoviedb.org/3/person/popular?api_key=${import.meta.env.VITE_APP_NEW_TMDB_API_KEY}&sort_by=popularity.desc&page=${currentPage}`)
 				.then((response) => response.json())
 				.then((response) => {
-					console.log(response.results);
+					console.log(response);
 					setPopularPersons(response.results);
 				})
 				.catch((err) => console.error(err));
 		};
-
 		fetchPopularPerson();
 
 		return () => {
 			setPopularPersons([]);
 		};
-	}, []);
+	}, [currentPage]);
 
 	return (
 		<div className="px-2 md:px-10">
 			<h1 className="py-5 text-2xl font-medium">Popular People</h1>
 
-			<div className="gap-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 py-10 relative">{popularPersons && <Items currentItems={popularPersons} />}</div>
-			<PaginatedItems itemsPerPage={itemsPerPage} />
+			<Peoples data={popularPersons} />
+			{/* Pagination */}
+			<div className="py-5">
+				<Pagination totalPages={totalPages} setCurrentPage={setCurrentPage} />
+			</div>
 		</div>
 	);
 };

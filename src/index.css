@@ -2,7 +2,29 @@
 @tailwind components;
 @tailwind utilities;
 
-
 .image-gradient {
 	@apply absolute bottom-0 left-0 w-full h-28 bg-gradient-to-t from-black to-transparent rounded-md;
+}
+
+.pagination {
+	@apply flex justify-center items-center space-x-2  px-10 py-3 w-auto;
+}
+
+.page-num {
+	@apply font-semibold bg-slate-900 text-white px-3 py-2 rounded-sm;
+}
+
+.pagination-active {
+	@apply text-slate-100 bg-slate-900 px-3 py-1 rounded-sm;
+}
+
+.text-hovered {
+	@apply text-slate-300 hover:text-slate-100 cursor-pointer duration-200 text-lg;
+}
+
+.person_grid {
+	display: grid;
+	grid-template-columns: 340px 1fr;
+	grid-template-rows: 1fr;
+	place-items: center;
 }

@@ -3,9 +3,10 @@ import { useState, useEffect } from 'react';
 import { AiOutlineUnorderedList, AiFillHeart, AiFillStar } from 'react-icons/ai';
 import { MdOutlineBookmark } from 'react-icons/md';
 
+import { emptyImage } from '../assets';
+
 import tippy from 'tippy.js';
 import { Tooltip } from 'react-tippy';
-import 'tippy.js/dist/tippy.css';
 
 const MovieDetails = () => {
 	const { id } = useParams();
@@ -57,72 +58,78 @@ const MovieDetails = () => {
 
 	return (
 		<>
-			<div className="flex h-5/6 gap-10 pt-20 px-10" style={bgCover}>
-				<div className="w-[600px] relative overflow-hidden rounded-md">
-					<img
-						src={`https://image.tmdb.org/t/p/original/` + movieDetails?.poster_path}
-						alt={movieDetails.title || movieDetails.original_name}
-						className="object-cover object-center absolute"
-						loading="lazy"
-					/>
-
-					<div className=" image-gradient"></div>
-				</div>
-				<div>
-					<h1 className="text-2xl font-medium">
-						{movieDetails.title}
-						<span>({new Date(movieDetails.release_date).getFullYear()})</span>
-					</h1>
+			<div className="h-screen relative overflow-hidden" style={bgCover}>
+				{/* <div className="opacity-50 bg-slate-600 h-screen w-full absolute top-0 left-0 z-1"></div> */}
+				<div className="px-10 flex  bg-slate-800 opacity-90  h-screen gap-10  z-3 items-center justify-center">
+					<div className="w-[600px] h-[700px] relative items-center flex justify-center overflow-hidden rounded-md">
+						<img
+							src={`https://image.tmdb.org/t/p/original/` + movieDetails?.poster_path}
+							alt={movieDetails.title || movieDetails.original_name}
+							className="object-cover object-center absolute"
+							loading="lazy"
+						/>
+					</div>
 					<div>
-						<span>{movieDetails?.release_date?.replace(/-/g, '/')}</span>
-						<span className="inline-block font-bold text-2xl px-2 text-slate-900">.</span>
+						<h1 className="text-4xl font-bold text-white">
+							{movieDetails.title}
+							<span className="text-gray-300 font-normal ml-2">({new Date(movieDetails.release_date).getFullYear()})</span>
+						</h1>
+						<div className="text-white">
+							<span>{movieDetails?.release_date?.replace(/-/g, '/')}</span>
+							<span className="inline-block font-bold text-2xl px-2 ">.</span>
 
-						{movieDetails.genres &&
-							movieDetails.genres.map((genre) => (
-								<Link to={`/movie/genre/` + genre.id} key={genre.id}>
-									<span className="text-gray-700 border px-2 mx-1 inline-block rounded-sm">{genre.name}</span>
-								</Link>
+							{movieDetails.genres &&
+								movieDetails.genres.map((genre) => (
+									<Link to={`/movie/genre/` + genre.id} key={genre.id}>
+										<span className=" border border-gray-600 px-2 mx-1 inline-block rounded-sm">{genre.name}</span>
+									</Link>
+								))}
+
+							<span className="inline-block font-bold text-2xl px-2">.</span>
+
+							<span>{movieDetails.runtime}m</span>
+						</div>
+
+						{/* Icons  */}
+						<ul className="flex gap-x-5 pt-5">
+							{icons.map(({ icon, title }) => (
+								<li className="text-white bg-slate-950 rounded-full w-10 h-10 flex items-center justify-center" key={title}>
+									<Tooltip title={title} position="top" trigger="mouseenter" animation="scale" className="flex justify-center items-center">
+										<span className="block text-xl cursor-pointer">{icon}</span>
+									</Tooltip>
+								</li>
 							))}
+						</ul>
 
-						<span className="inline-block font-bold text-2xl px-2 text-slate-900">.</span>
-
-						<span>{movieDetails.runtime}m</span>
+						<div className="text-white">
+							<p className="text-xl py-5 italic text-gray-300">{movieDetails.tagline}</p>
+							<p className="text-lg">{movieDetails.overview}</p>
+							<p>votes: {movieDetails.vote_count}</p>
+							<p>ratings: {movieDetails.vote_average}</p>
+						</div>
 					</div>
-
-					{/* Icons  */}
-					<ul className="flex gap-x-5 py-5">
-						{icons.map(({ icon, title }) => (
-							<li className="border-gray-300 border px-2 py-1 rounded-md flex items-center justify-center" key={title}>
-								<Tooltip title={title} position="top" trigger="mouseenter" animation="scale">
-									<span className="inline-block text-2xl cursor-pointer">{icon}</span>
-								</Tooltip>
-							</li>
-						))}
-					</ul>
-
-					<div>
-						<p className="text-gray-700">{movieDetails.overview}</p>
-						<p>votes: {movieDetails.vote_count}</p>
-						<p>ratings: {movieDetails.vote_average}</p>
-					</div>
-				</div>
-				{/* <p>Production:</p>
+					{/* <p>Production:</p>
 				{movieDetails.production_companies && movieDetails.production_companies.map((production) => <p key={production.name}>{production.name}</p>)}
 				Countries: {movieDetails.production_countries && movieDetails.production_countries.map((production) => <p key={production.name}>{production.name}</p>)} */}
+				</div>
 			</div>
 
-			<div className="px-10">
+			<div className="px-10 mb-10 py-10">
 				<h1 className="py-5 text-2xl font-medium">Top Billed Cast</h1>
-				<div className="flex items-start justify-start gap-x-5 w-full overflow-x-scroll ">
+				<div className="flex items-start justify-start gap-x-5 w-full overflow-x-auto ">
 					{movieDetails.credits?.cast &&
 						movieDetails.credits?.cast.map((cast) => (
 							<div className="flex flex-col shadow-gray-300 shadow-md" key={cast.id}>
-								<div className="border relative overflow-hidden rounded-md w-40   h-60">
-									<img className="block absolute object-cover object-center" src={`https://image.tmdb.org/t/p/original/${cast?.profile_path}`} alt={cast.name} />
+								<div className="border relative overflow-hidden w-44 h-52 ">
+									<img
+										className="block absolute object-cover object-center"
+										src={cast?.profile_path === null ? emptyImage : `https://image.tmdb.org/t/p/original/${cast?.profile_path}`}
+										alt={cast.name}
+									/>
 								</div>
-								<div>
-									<p className=" text-lg font-medium">{cast.name || cast.original_name}</p>
-									<p>{cast.character}</p>
+								<div className="px-2 py-3 h-24">
+									<p className=" text-md font-medium">{cast.name || cast.original_name}</p>
+									<p className=" text-sm">{cast.character}</p>
 								</div>
 							</div>
 						))}
