@@ -7,10 +7,10 @@ const PersonDetails = () => {
 
 	useEffect(() => {
 		const fetchPersonDetails = () => {
-			fetch(`https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_APP_NEW_TMDB_API_KEY}&append_to_response=known_for`)
+			fetch(`https://api.themoviedb.org/3/person/${id}?api_key=${import.meta.env.VITE_APP_NEW_TMDB_API_KEY}&append_to_response=credits`)
 				.then((response) => response.json())
 				.then((response) => {
-					// console.log(response);
+					console.log(response);
 					setPersonDetails(response);
 				})
 				.catch((err) => console.error(err));

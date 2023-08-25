@@ -36,6 +36,7 @@ const Footer = () => {
 				<p className="text-hovered">API Terms of Use</p>
 				<p className="text-hovered">Support Forums</p>
 				<p className="text-hovered">Privacy Policy</p>
+				<p className="text-hovered">Jerome Larua</p>
 			</div>
 		</footer>
 	);

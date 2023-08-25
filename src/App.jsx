@@ -13,10 +13,11 @@ const MovieDetails = lazy(() => import('./pages/MovieDetails'));
 const PopularPerson = lazy(() => import('./pages/PopularPerson'));
 const MovieGenre = lazy(() => import('./pages/MovieGenre'));
 const PersonDetails = lazy(() => import('./pages/PersonDetails'));
-
+import Test from './pages/Test';
 const App = () => {
 	return (
 		<Routes>
+			<Route path="/test" element={<Test />} />
 			<Route
 				element={
 					<Suspense fallback={'Loading...'}>
@@ -78,7 +79,6 @@ const App = () => {
 						</Suspense>
 					}
 				/>
-
 			</Route>
 			<Route
 				path="/*"
